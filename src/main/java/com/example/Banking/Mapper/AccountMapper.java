@@ -16,7 +16,6 @@ public class AccountMapper {
 
     public static Account mapToAccount(AccountDto accountDto){
         Account acc = new Account(
-                accountDto.id(),
                 accountDto.accountHolderName(),
                 accountDto.balance()
         );
