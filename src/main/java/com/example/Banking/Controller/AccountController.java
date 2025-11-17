@@ -50,7 +50,8 @@ public class AccountController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable long id){
+    public ResponseEntity<String> deleteById(@PathVariable long id){
         accountService.deleteById(id);
+        return ResponseEntity.ok("Account deleted Successfully");
     }
 }
