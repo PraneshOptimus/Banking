@@ -1,8 +1,10 @@
 package com.example.Banking.Config;
 
-import com.example.Banking.UserServices.CustomUserDetailService;
+
+import com.example.Banking.UserServices.CustomUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -19,7 +21,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         http.authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll())
+                .requestMatchers(HttpMethod.POST,"/addUser").permitAll()
+                .requestMatchers("/showUsers").authenticated()
+                        .requestMatchers(HttpMethod.POST,"api/acc/deposit/**").permitAll()
+                        .requestMatchers("/api/acc/**").authenticated()
+                        .anyRequest().permitAll()
+                )
+
                 .formLogin(form -> form.permitAll().defaultSuccessUrl("/dashboard"))
                 .csrf(csrf -> csrf.disable());
 
@@ -33,7 +41,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetails(){
-        return new CustomUserDetailService();
+        return new CustomUserService();
     }
 
     @Bean
@@ -43,5 +51,5 @@ public class SecurityConfig {
         dao.setPasswordEncoder(passwordEncoder());
         return dao;
     }
-}
 
+}

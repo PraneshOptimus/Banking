@@ -1,5 +1,6 @@
 package com.example.Banking.Entity;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,9 +13,9 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class User {
+@NoArgsConstructor
+public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +25,4 @@ public class User {
 
     private String password;
 
-    public User(String username, String password) {
-    }
 }
